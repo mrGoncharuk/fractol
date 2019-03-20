@@ -6,7 +6,7 @@
 #    By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 15:35:14 by mhonchar          #+#    #+#              #
-#    Updated: 2019/03/19 17:41:27 by mhonchar         ###   ########.fr        #
+#    Updated: 2019/03/20 19:52:07 by mhonchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ LIB = $(addprefix $(LIB_DIR), $(LIB_NAME))
 
 SRC_FILES =		main.c \
 				input_handler.c \
-				mandelbrot.c
+				utils.c \
+				mandelbrot.c \
+				julia.c
+
 
 HEADERS = $(INC_DIR)fractol.h $(LIB_DIR)libft.h
 

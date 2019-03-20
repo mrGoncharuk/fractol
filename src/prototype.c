@@ -6,32 +6,26 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:25:07 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/19 18:59:31 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/03/20 20:35:52 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void        ft_put_set(t_win *win)
+void			ft_create_color(t_win *win, int n)
 {
-	win->z_re = (win->j / WIDTH) * 3 - 1.5;
+	int		br;
+
+	if (n != win->max_it)
+	{
+		br = (n * 16) % 256;
+		ft_pp_img(win->pix_ptr, win->i, win->j, (br | br << win->col_offset
+			| br << win->col_offset * 2));
+	}
+	else
+		ft_pp_img(win->pix_ptr, win->i, win->j, 0xFFFFFF);
 }
 
-void		ft_make_mandelbrot(t_win *win)
-{
-	win->i = 0;
-	while (win->i < HEIGHT)
-	{
-		win->j = 0;
-		while (win->j < WIDTH)
-		{
-			ft_put_set(t_win *win);
-			
-			win->j++;
-		}
-		win->i++;
-	}
-}
 
 void	ft_draw_fractal(t_frac *win, double x, double y)
 {
@@ -119,3 +113,7 @@ void	ft_pthread_mandelbrot(t_win *win)
 		pthread_join(pt[i], NULL);
 	}
 }
+
+
+
+

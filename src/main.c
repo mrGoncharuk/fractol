@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:01:05 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/19 20:38:36 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/03/20 21:41:28 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,7 @@ int		ft_deal_key(int key, void *param)
 
 	win = (t_win *)param;
 	if (key == K_NUM_0)
-		ft_bzero(((t_win *)param)->pix_ptr, WIDTH * HEIGHT);
-	if (key == K_SPACEBAR)
-	{
-		if (win->col_offset == 8)
-			win->col_offset = 1;
-		else
-			win->col_offset++;
-	}
+		ft_set_default(win);
 	if (key == K_ESC)
 		exit(0);
 	if (key == K_LEFT_ARROW || key == K_RIGTH_ARROW || key == K_UP_ARROW
@@ -36,6 +29,11 @@ int		ft_deal_key(int key, void *param)
 		win->max_it += 20;
 	if (key == K_NUM_MINUS && win->max_it > 100)
 		win->max_it -= 20;
+	if (key == K_R || key == K_G || key == K_B)
+		ft_move_color(win, key);
+	if (key == K_1 || key == K_2)
+		ft_set_fractal(win, key);
+	printf("[key = %d]\n", key);
 	ft_rewrite(win);
 	return (0);
 }
@@ -62,17 +60,15 @@ int		mouse_press(int button, int x, int y, void *param)
 void	ft_rewrite(t_win *win)
 {
 	ft_bzero(win->pix_ptr, WIDTH * HEIGHT * 4);
-	ft_pthread_mandelbrot(win);
+	win->ft_putfract(win);
 	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
 }
 
-void	ft_win_init(t_win *win)
+void	ft_init_win(t_win *win, int frnumber)
 {
 	int		bpp;
 	int		size_line;
 	int		endian;
-	double	w;
-	double	h;
 
 	bpp = 32;
 	size_line = WIDTH;
@@ -81,32 +77,27 @@ void	ft_win_init(t_win *win)
 	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGHT, "fract'ol");
 	win->img_ptr = mlx_new_image(win->mlx_ptr, WIDTH, HEIGHT);
 	win->pix_ptr = mlx_get_data_addr(win->img_ptr, &bpp, &size_line, &endian);
-	w = 5;
-	h = (w * HEIGHT) / WIDTH;
-	win->min_val.x = -w / 2;
-	win->min_val.y = -h / 2;
-	win->max_val.x = win->min_val.x + w;
-	win->max_val.y = win->min_val.y + h;
-	win->max_it = 100;
-	win->col_offset = 4;
+	win->ft_putfract = NULL;
+	ft_set_fractal(win, frnumber);
 	ft_rewrite(win);
 }
 
 int		main(int argc, char **argv)
 {
 	t_win	win;
+	int		frnumber;
 
 	if (argc != 2)
 	{
 		ft_print_usage();
 		return (0);
 	}
-	else if (ft_check_input(argv[1]))
+	else if ((frnumber = ft_check_input(argv[1])) == -1)
 	{
 		ft_print_usage();
 		return (0);
 	}
-	ft_win_init(&win);
+	ft_init_win(&win, frnumber);
 	mlx_hook(win.win_ptr, 4, (1L << 0), mouse_press, (void*)&win);
 	mlx_key_hook(win.win_ptr, ft_deal_key, (void*)&win);
 	mlx_loop(win.mlx_ptr);

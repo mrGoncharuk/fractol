@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:25:08 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/19 20:39:01 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/03/20 21:40:06 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int			ft_check_input(char *fract_name)
 {
 	if (!ft_strcmp(fract_name, "1") || !ft_strcmp(fract_name, "mandelbrot"))
-		return (0);
+		return (FR_MANDELBROT);
+	if (!ft_strcmp(fract_name, "2") || !ft_strcmp(fract_name, "julia"))
+		return (FR_JULIA);
 	return (-1);
 }
 
@@ -23,13 +25,8 @@ void		ft_print_usage(void)
 {
 	ft_putendl("Usage: ./fractol [fractal_name/fractal_number]");
 	ft_putendl("Available fractals:");
-	ft_putendl("1. Mandelbrot");
-	ft_putendl("2. Julia");
-}
-
-double		interpolate(double start, double end, double interpolation)
-{
-	return (start + ((end - start) * interpolation));
+	ft_putendl("1. mandelbrot");
+	ft_putendl("2. julia");
 }
 
 void		ft_mouse_zoom(t_win *win, double interpolation, int x, int y)
@@ -74,4 +71,12 @@ void		ft_move_img(t_win *win, int key)
 		win->min_val.y -= y_move_pow;
 		win->max_val.y -= y_move_pow;
 	}
+}
+
+void		ft_set_fractal(t_win *win, int frnumber)
+{
+	if (frnumber == FR_MANDELBROT && win->ft_putfract != ft_pthread_mandelbrot)
+		ft_init_mandelbrot(win);
+	else if (frnumber == FR_JULIA && win->ft_putfract != ft_pthread_julia)
+		ft_init_julia(win);
 }

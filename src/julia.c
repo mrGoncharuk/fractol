@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 16:55:44 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:27:52 by mhonchar         ###   ########.fr       */
+/*   Created: 2019/03/20 19:04:46 by mhonchar          #+#    #+#             */
+/*   Updated: 2019/03/20 21:38:11 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
-void			ft_init_mandelbrot(t_win *win)
+void			ft_init_julia(t_win *win)
 {
 	ft_set_default(win);
-	win->ft_putfract = ft_pthread_mandelbrot;
+	win->c_im = -0.3842;
+	win->c_re = -0.70176;
+	win->ft_putfract = ft_pthread_julia;
 }
 
-void			ft_draw_mandelbrot(t_win *win, double x, double y)
+void			ft_draw_julia(t_win *win, double x, double y)
 {
 	int		n;
 	double	z_re;
@@ -27,23 +28,23 @@ void			ft_draw_mandelbrot(t_win *win, double x, double y)
 	double	z_resqr;
 	double	z_imsqr;
 
-	z_re = 0;
-	z_im = 0;
+	z_re = x;
+	z_im = y;
 	z_resqr = z_re * z_re;
 	z_imsqr = z_im * z_im;
 	n = -1;
 	while (z_resqr + z_imsqr <= 4.0 && ++n < win->max_it)
 	{
 		z_im = ft_pow(z_re + z_im, 2) - z_resqr - z_imsqr;
-		z_im += y;
-		z_re = z_resqr - z_imsqr + x;
+		z_im += win->c_im;
+		z_re = z_resqr - z_imsqr + win->c_re;
 		z_resqr = z_re * z_re;
 		z_imsqr = z_im * z_im;
 	}
 	ft_create_color(win, n);
 }
 
-void			*ft_mandelbrot(void *w)
+void			*ft_julia(void *w)
 {
 	t_win		*win;
 	double		x;
@@ -57,7 +58,7 @@ void			*ft_mandelbrot(void *w)
 		x = win->min_val.x;
 		while (++win->i < WIDTH)
 		{
-			ft_draw_mandelbrot(win, x, y);
+			ft_draw_julia(win, x, y);
 			x += win->dx;
 		}
 		y += win->dy;
@@ -66,7 +67,7 @@ void			*ft_mandelbrot(void *w)
 	return (w);
 }
 
-void			ft_pthread_mandelbrot(t_win *win)
+void			ft_pthread_julia(t_win *win)
 {
 	pthread_t	pt[THREADS_AMOUNT];
 	t_win		w[THREADS_AMOUNT];
@@ -87,7 +88,7 @@ void			ft_pthread_mandelbrot(t_win *win)
 	w[i].j_max = HEIGHT;
 	i = -1;
 	while (++i < THREADS_AMOUNT)
-		pthread_create((pt + i), NULL, ft_mandelbrot, (void*)(w + i));
+		pthread_create((pt + i), NULL, ft_julia, (void*)(w + i));
 	i = -1;
 	while (++i < THREADS_AMOUNT)
 		pthread_join(pt[i], NULL);
