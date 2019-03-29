@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhonchar <mhonchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:01:02 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:41:28 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/03/24 20:32:20 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 # include "mlx.h"
 # include <math.h>
 # include <pthread.h>
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 800
+# define HEIGHT 800
 # define THREADS_AMOUNT 4
 
-# define K_MOUSE_LEFT 1
+# define K_MOUSE_LEFT 65437
 # define K_MOUSE_RIGHT 2
 # define K_MOUSE_WHEEL_DOWN 4
 # define K_MOUSE_WHEEL_UP 5
-# define K_LEFT_ARROW 123
-# define K_RIGTH_ARROW 124
-# define K_UP_ARROW 126
-# define K_DOWN_ARROW 125
-# define K_NUM_PLUS 69
-# define K_NUM_MINUS 78
-# define K_NUM_0 82
+# define K_LEFT_ARROW 65361
+# define K_UP_ARROW 65362
+# define K_RIGTH_ARROW 65363
+# define K_DOWN_ARROW 65364
+# define K_NUM_PLUS 65451
+# define K_NUM_MINUS 65453
+# define K_NUM_0 65438
 
 # define K_NUM_7 89
 # define K_NUM_4 86
@@ -42,8 +42,8 @@
 # define K_NUM_3 85
 # define K_NUM_1 83
 
-# define K_1 18
-# define K_2 19
+# define K_1 49
+# define K_2 50
 # define K_3 20
 # define K_4 21
 # define K_5 23
@@ -52,14 +52,14 @@
 # define FR_MANDELBROT K_1
 # define FR_JULIA K_2
 
-# define K_ESC 53
+# define K_ESC 65307
 # define K_SPACEBAR 49
 # define K_H 4
-# define K_R 15
-# define K_G 5
-# define K_B 11
-# define K_L 37
-# define K_I 34
+# define K_R 114
+# define K_G 103
+# define K_B 98
+# define K_L 83
+# define K_I 84
 
 # define C_RED 0xFF0000
 # define C_GREEN 0x00FF00

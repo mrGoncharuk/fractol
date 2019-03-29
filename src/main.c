@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhonchar <mhonchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:01:05 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:41:28 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/03/24 20:20:29 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int		ft_deal_key(int key, void *param)
 		ft_move_color(win, key);
 	if (key == K_1 || key == K_2)
 		ft_set_fractal(win, key);
+	if (key == K_MOUSE_LEFT || key == K_MOUSE_WHEEL_UP)
+	{
+		ft_mouse_zoom(win, 0.8, WIDTH / 2, HEIGHT / 2);
+		ft_rewrite(win);
+	}
+	if (key == K_MOUSE_RIGHT || key == K_MOUSE_WHEEL_DOWN)
+	{
+		ft_mouse_zoom(win, 1.1, WIDTH / 2, HEIGHT / 2);
+		ft_rewrite(win);
+	}
 	printf("[key = %d]\n", key);
 	ft_rewrite(win);
 	return (0);
