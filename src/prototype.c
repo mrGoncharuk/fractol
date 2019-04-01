@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:25:07 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 20:35:52 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/04/01 18:52:34 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,32 @@ void	*ft_mandelbrot(void *w)
 	return (w);
 }
 
+
+void			ft_draw_bship(t_win *win, double x, double y)
+{
+	int		n;
+	double	z_re;
+	double	z_im;
+	double	z_resqr;
+	double	z_imsqr;
+
+	z_re = 0;
+	z_im = 0;
+	z_resqr = z_re * z_re;
+	z_imsqr = z_im * z_im;
+	n = -1;
+	while (z_resqr + z_imsqr <= 4.0 && ++n < win->max_it)
+	{
+        // z_im = ft_abs(z_im);
+		// z_re = ft_abs(z_re);
+		z_im = ft_pow(z_re + z_im, 2) - z_resqr - z_imsqr;
+		z_im += y;
+		z_re = fabs(z_resqr - z_imsqr + x);
+		z_resqr = z_re * z_re;
+		z_imsqr = z_im * z_im;
+	}
+	ft_create_color(win, n);
+}
 
 
 void	ft_pthread_mandelbrot(t_win *win)

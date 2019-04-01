@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:01:02 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:41:28 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:06:38 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define WIDTH 1600
 # define HEIGHT 900
 # define THREADS_AMOUNT 4
-
+# define USAGE "Usage: R G B: swap colors, NUM_0 set defalut, 1 2: swap fractals, NUM_PLUS/MINUS: change iterations, Move: arrows"
 # define K_MOUSE_LEFT 1
 # define K_MOUSE_RIGHT 2
 # define K_MOUSE_WHEEL_DOWN 4
@@ -51,6 +51,8 @@
 
 # define FR_MANDELBROT K_1
 # define FR_JULIA K_2
+# define FR_BSHIP K_3
+# define FR_SPINNER K_4
 
 # define K_ESC 53
 # define K_SPACEBAR 49
@@ -79,6 +81,7 @@ typedef struct	s_win
 	void		*win_ptr;
 	void		*img_ptr;
 	char		*pix_ptr;
+	int			frnumber;
 	void		(*ft_putfract)(struct s_win*);
 	double		c_im;
 	double		c_re;
@@ -125,6 +128,10 @@ void			ft_pthread_mandelbrot(t_win *win);
 void			ft_init_mandelbrot(t_win *win);
 void			ft_pthread_julia(t_win *win);
 void			ft_init_julia(t_win *win);
+void			ft_pthread_bship(t_win *win);
+void			ft_init_bship(t_win *win);
+void			ft_pthread_spinner(t_win *win);
+void			ft_init_spinner(t_win *win);
 void			ft_rewrite(t_win *win);
 
 #endif

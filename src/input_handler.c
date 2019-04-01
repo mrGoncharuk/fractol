@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:25:08 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:40:06 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:05:34 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ int			ft_check_input(char *fract_name)
 		return (FR_MANDELBROT);
 	if (!ft_strcmp(fract_name, "2") || !ft_strcmp(fract_name, "julia"))
 		return (FR_JULIA);
+	if (!ft_strcmp(fract_name, "3") || !ft_strcmp(fract_name, "burningship"))
+		return (FR_BSHIP);
+	if (!ft_strcmp(fract_name, "4") || !ft_strcmp(fract_name, "spinner"))
+		return (FR_SPINNER);
 	return (-1);
 }
 
@@ -27,6 +31,8 @@ void		ft_print_usage(void)
 	ft_putendl("Available fractals:");
 	ft_putendl("1. mandelbrot");
 	ft_putendl("2. julia");
+	ft_putendl("3. burningship");
+	ft_putendl("4. spinner");
 }
 
 void		ft_mouse_zoom(t_win *win, double interpolation, int x, int y)
@@ -77,6 +83,8 @@ void		ft_set_fractal(t_win *win, int frnumber)
 {
 	if (frnumber == FR_MANDELBROT && win->ft_putfract != ft_pthread_mandelbrot)
 		ft_init_mandelbrot(win);
-	else if (frnumber == FR_JULIA && win->ft_putfract != ft_pthread_julia)
-		ft_init_julia(win);
+	else if (frnumber == FR_SPINNER && win->ft_putfract != ft_pthread_spinner)
+		ft_init_spinner(win);
+	else if (frnumber == FR_BSHIP && win->ft_putfract != ft_pthread_bship)
+		ft_init_bship(win);
 }

@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:04:46 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:38:11 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:00:33 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void			ft_init_julia(t_win *win)
 {
 	ft_set_default(win);
-	win->c_im = -0.3842;
-	win->c_re = -0.70176;
 	win->ft_putfract = ft_pthread_julia;
 }
 

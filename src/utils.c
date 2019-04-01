@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:51:37 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:41:55 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/04/01 19:07:54 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			ft_set_default(t_win *win)
 	win->max_val.x = win->min_val.x + w;
 	win->max_val.y = win->min_val.y + h;
 	win->max_it = 100;
-	win->red = 5;
+	win->red = 9;
 	win->green = 9;
 	win->blue = 25;
 }

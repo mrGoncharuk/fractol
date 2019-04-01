@@ -6,7 +6,7 @@
 #    By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 15:35:14 by mhonchar          #+#    #+#              #
-#    Updated: 2019/03/20 19:52:07 by mhonchar         ###   ########.fr        #
+#    Updated: 2019/04/01 20:04:04 by mhonchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SRC_FILES =		main.c \
 				input_handler.c \
 				utils.c \
 				mandelbrot.c \
-				julia.c
+				julia.c \
+				bship.c \
+				spinner.c
 
 
 HEADERS = $(INC_DIR)fractol.h $(LIB_DIR)libft.h

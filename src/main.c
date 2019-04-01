@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:01:05 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/03/20 21:41:28 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/04/01 20:05:12 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,22 @@ int		ft_deal_key(int key, void *param)
 		win->max_it -= 20;
 	if (key == K_R || key == K_G || key == K_B)
 		ft_move_color(win, key);
-	if (key == K_1 || key == K_2)
+	if ((win->frnumber != FR_JULIA) && (key == K_1 || key == K_3 || key == K_4))
 		ft_set_fractal(win, key);
-	printf("[key = %d]\n", key);
+	// printf("[key = %d]\n", key);
+	// printf("[%f, %f] [%f, %f]\n", win->min_val.x, win->max_val.x, win->min_val.y, win->max_val.y);
+	ft_rewrite(win);
+	return (0);
+}
+
+int		mouse_move(int x, int y, void *param)
+{
+	t_win	*win;
+
+	win = (t_win *)param;
+	win->c_re = ((double)x / WIDTH) * 2 - 1;
+	win->c_im = ((double)y / HEIGHT) * 2 - 1;
+	printf("[%f, %f]\t[%d, %d]\n", win->c_re, win->c_im, x, y);
 	ft_rewrite(win);
 	return (0);
 }
@@ -64,7 +77,7 @@ void	ft_rewrite(t_win *win)
 	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
 }
 
-void	ft_init_win(t_win *win, int frnumber)
+void	ft_init_win(t_win *win)
 {
 	int		bpp;
 	int		size_line;
@@ -78,27 +91,28 @@ void	ft_init_win(t_win *win, int frnumber)
 	win->img_ptr = mlx_new_image(win->mlx_ptr, WIDTH, HEIGHT);
 	win->pix_ptr = mlx_get_data_addr(win->img_ptr, &bpp, &size_line, &endian);
 	win->ft_putfract = NULL;
-	ft_set_fractal(win, frnumber);
+	ft_set_fractal(win, win->frnumber);
 	ft_rewrite(win);
 }
 
 int		main(int argc, char **argv)
 {
 	t_win	win;
-	int		frnumber;
 
 	if (argc != 2)
 	{
 		ft_print_usage();
 		return (0);
 	}
-	else if ((frnumber = ft_check_input(argv[1])) == -1)
+	else if ((win.frnumber = ft_check_input(argv[1])) == -1)
 	{
 		ft_print_usage();
 		return (0);
 	}
-	ft_init_win(&win, frnumber);
+	ft_init_win(&win);
 	mlx_hook(win.win_ptr, 4, (1L << 0), mouse_press, (void*)&win);
+	if (win.frnumber == FR_JULIA)
+		mlx_hook(win.win_ptr, 6, (1L << 0), mouse_move, (void*)&win);
 	mlx_key_hook(win.win_ptr, ft_deal_key, (void*)&win);
 	mlx_loop(win.mlx_ptr);
 	return (0);
