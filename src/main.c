@@ -6,12 +6,11 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:01:05 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/04/01 20:05:12 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:20:37 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 int		ft_deal_key(int key, void *param)
 {
@@ -20,53 +19,25 @@ int		ft_deal_key(int key, void *param)
 	win = (t_win *)param;
 	if (key == K_NUM_0)
 		ft_set_default(win);
-	if (key == K_ESC)
+	else if (key == K_ESC)
 		exit(0);
-	if (key == K_LEFT_ARROW || key == K_RIGTH_ARROW || key == K_UP_ARROW
+	else if (key == K_LEFT_ARROW || key == K_RIGTH_ARROW || key == K_UP_ARROW
 		|| key == K_DOWN_ARROW)
 		ft_move_img(win, key);
-	if (key == K_NUM_PLUS)
-		win->max_it += 20;
-	if (key == K_NUM_MINUS && win->max_it > 100)
-		win->max_it -= 20;
-	if (key == K_R || key == K_G || key == K_B)
+	else if (key == K_NUM_PLUS && win->max_it < 120)
+		win->max_it += 10;
+	else if (key == K_NUM_MINUS && win->max_it > 100)
+		win->max_it -= 10;
+	else if (key == K_SPACEBAR)
+		win->julia_rotate = !win->julia_rotate;
+	else if (key == K_R || key == K_G || key == K_B)
 		ft_move_color(win, key);
-	if ((win->frnumber != FR_JULIA) && (key == K_1 || key == K_3 || key == K_4))
+	else if (key == K_1 || key == K_2 || key == K_3 ||
+		key == K_4 || key == K_5 || key == K_6 || key == K_7 || key == K_8)
 		ft_set_fractal(win, key);
-	// printf("[key = %d]\n", key);
-	// printf("[%f, %f] [%f, %f]\n", win->min_val.x, win->max_val.x, win->min_val.y, win->max_val.y);
+	else if (key == K_H)
+		win->help = !(win->help);
 	ft_rewrite(win);
-	return (0);
-}
-
-int		mouse_move(int x, int y, void *param)
-{
-	t_win	*win;
-
-	win = (t_win *)param;
-	win->c_re = ((double)x / WIDTH) * 2 - 1;
-	win->c_im = ((double)y / HEIGHT) * 2 - 1;
-	printf("[%f, %f]\t[%d, %d]\n", win->c_re, win->c_im, x, y);
-	ft_rewrite(win);
-	return (0);
-}
-
-int		mouse_press(int button, int x, int y, void *param)
-{
-	t_win	*win;
-
-	win = param;
-	if (button == K_MOUSE_LEFT || button == K_MOUSE_WHEEL_UP)
-	{
-		ft_mouse_zoom(win, 0.9, x, y);
-		ft_rewrite(win);
-	}
-	if (button == K_MOUSE_RIGHT || button == K_MOUSE_WHEEL_DOWN)
-	{
-		ft_mouse_zoom(win, 1.1, x, y);
-		ft_rewrite(win);
-	}
-	printf("[%d]\n", button);
 	return (0);
 }
 
@@ -75,6 +46,7 @@ void	ft_rewrite(t_win *win)
 	ft_bzero(win->pix_ptr, WIDTH * HEIGHT * 4);
 	win->ft_putfract(win);
 	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
+	ft_put_help(win);
 }
 
 void	ft_init_win(t_win *win)
@@ -111,8 +83,7 @@ int		main(int argc, char **argv)
 	}
 	ft_init_win(&win);
 	mlx_hook(win.win_ptr, 4, (1L << 0), mouse_press, (void*)&win);
-	if (win.frnumber == FR_JULIA)
-		mlx_hook(win.win_ptr, 6, (1L << 0), mouse_move, (void*)&win);
+	mlx_hook(win.win_ptr, 6, (1L << 0), mouse_move, (void*)&win);
 	mlx_key_hook(win.win_ptr, ft_deal_key, (void*)&win);
 	mlx_loop(win.mlx_ptr);
 	return (0);

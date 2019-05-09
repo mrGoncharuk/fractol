@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:04:46 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/04/01 20:00:33 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:46:03 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void			ft_init_julia(t_win *win)
 {
+	ft_bzero(win->pix_ptr, WIDTH * HEIGHT * sizeof(int));
+	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
 	ft_set_default(win);
+	win->julia_rotate = 1;
 	win->ft_putfract = ft_pthread_julia;
 }
 

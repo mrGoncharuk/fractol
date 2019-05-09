@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:51:37 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/04/01 19:07:54 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:39:26 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void			ft_set_default(t_win *win)
 	win->red = 9;
 	win->green = 9;
 	win->blue = 25;
+	win->julia_rotate = 0;
 }
