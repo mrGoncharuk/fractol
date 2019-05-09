@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:01:05 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/05/09 18:20:37 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:28:11 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_init_win(t_win *win)
 	size_line = WIDTH;
 	endian = 0;
 	win->mlx_ptr = mlx_init();
-	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGHT, "fract'ol");
+	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGHT, "fractol");
 	win->img_ptr = mlx_new_image(win->mlx_ptr, WIDTH, HEIGHT);
 	win->pix_ptr = mlx_get_data_addr(win->img_ptr, &bpp, &size_line, &endian);
 	win->ft_putfract = NULL;
