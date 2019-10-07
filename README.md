@@ -28,7 +28,7 @@ Available fractals:
 5. fish
 6. flower
 7. heart
-8. splashp
+8. splash
 ```
 
 ## Pictures
