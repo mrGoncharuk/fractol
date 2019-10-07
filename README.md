@@ -8,13 +8,13 @@ Fractol is a project aimed at exploring fractals, mathematical sets that exhibit
 
 ## Features
 
-Multiple fractals : Mandelbrot, Julia, BurningShip, etc.
-Increase and decrease max iteration for shape calculation.
-Zoom in cursor position click.
-Zoom in center on mouse wheel scroll.
-Different colors patterns.
-Moving on image.
-Swap fractals in real time.
+- Multiple fractals : Mandelbrot, Julia, BurningShip, etc.
+- Increase and decrease max iteration for shape calculation.
+- Zoom in cursor position click.
+- Zoom in center on mouse wheel scroll.
+- Different colors patterns.
+- Moving on image.
+- Swap fractals in real time.
 
 ## How to use ?
 
